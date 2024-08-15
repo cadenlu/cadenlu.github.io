@@ -1,0 +1,25 @@
+[[entries]]
+title = "info"
+
+  [[entries.entries]]
+  title = "github"
+  url = "https://github.com/cadenlu"
+
+  [[entries.entries]]
+  title = "linkedin"
+  url = "linkedin.com/in/cadenlu"
+
+
+[[entries]]
+title = "posts"
+
+  [entries.post_list]
+  limit = 5
+  show_more = true
+  show_more_text = "See archive..."
+  show_more_url = "posts"
+  
+
+[[entries]]
+title = "rss"
+url = "index.xml"

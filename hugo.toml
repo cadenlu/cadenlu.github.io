@@ -1,4 +1,4 @@
 baseURL = 'https://cadenlu.xyz/'
 languageCode = 'en-us'
 title = 'caden lu'
-theme = 'nostyleplease'
+theme = 'hugo-theme-nostyleplease-main'
