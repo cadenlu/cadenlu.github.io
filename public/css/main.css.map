@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "main.css",
-	"sourceRoot": "/Users/caden/dev/cadenlu.github.io",
+	"sourceRoot": "/Users/cadenlu/Documents/dev/cadenlu.github.io",
 	"sources": [
 		"themes/hugo-theme-nostyleplease-main/assets/css/main.scss"
 	],
