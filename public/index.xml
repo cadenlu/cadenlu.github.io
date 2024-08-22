@@ -6,14 +6,14 @@
     <description>Recent content on caden lu</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Aug 2024 23:28:09 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 15 Aug 2024 22:56:39 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My First Post</title>
-      <link>http://localhost:1313/posts/my-first-post/</link>
-      <pubDate>Wed, 14 Aug 2024 23:28:09 -0700</pubDate>
-      <guid>http://localhost:1313/posts/my-first-post/</guid>
-      <description>Hello World!</description>
+      <title>About Me</title>
+      <link>http://localhost:1313/about-me/</link>
+      <pubDate>Thu, 15 Aug 2024 22:56:39 -0700</pubDate>
+      <guid>http://localhost:1313/about-me/</guid>
+      <description>Hi I am Caden and I like bread.&#xA;I am currently working as web man for UBC Web Services. I love to code and learn new things. I am passionate about technology and I am always looking for new opportunities to learn and grow.&#xA;I am currently working on a few side projects and I am always looking for new ideas to work on. If you have any questions or would like to get in touch, feel free to reach out to me.</description>
     </item>
   </channel>
 </rss>
