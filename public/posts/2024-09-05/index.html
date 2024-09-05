@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   
+  <meta name="description" content="Walking Robot Simulation def robotSim(self, commands: List[int], obstacles: List[List[int]]) -&gt; int: # for O(1) lookup in obstacles obstacles = set(map(tuple, obstacles)) direction = 0 # O123 is NESW move = [(0,1), (1,0), (0,-1), (-1,0)] max_distance = 0 curr = [0,0] for command in commands: if command &gt; 0: # move in direction while command &gt; 0 and (curr[0]&#43;move[direction][0], curr[1]&#43;move[direction][1]) not in obstacles: curr[0] &#43;= move[direction][0] curr[1] &#43;= move[direction][1] command -= 1 elif command == -1: # right direction = (direction &#43; 1) % 4 elif command == -2: # left direction = (direction &#43; 3) % 4 max_distance = max(max_distance, curr[0]*curr[0] &#43; curr[1]*curr[1]) return max_distance Was getting TLE the first time since I used obstacles as is for lookups">  
+  
+
+  <title>
+    
+      Leetcode Dailies 4-5
+    
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/" />
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.8a6a3ecb92f1b1fc0a3e0c8f71869c3842012c081abdd68f5927805dd71af34494df2e847f5f11a26a004b9c2483325e1b093e9f1fd22a8a6f04dac0a31a142f.css" integrity="sha512-imo&#43;y5LxsfwKPgyPcYacOEIBLAgavdaPWSeAXdca80SU3y6Ef18RomoAS5wkgzJeGwk&#43;nx/SKopvBNrAoxoULw==" />
+  
+</head>
+<body a="auto">
+        <main class="page-content" aria-label="Content">
+            <div class="w">
+<a href="/">&lt;- home</a>
+
+
+<article>
+    <p class="post-meta">
+        <time datetime="2024-09-05 10:33:57 -0700 PDT">
+            2024-09-05
+        </time>
+    </p>
+
+    <h1>Leetcode Dailies 4-5</h1>
+
+    
+
+    <ol start="874">
+<li>Walking Robot Simulation</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">robotSim</span>(self, commands: List[int], obstacles: List[List[int]]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># for O(1) lookup in obstacles</span>
+</span></span><span style="display:flex;"><span>    obstacles <span style="color:#f92672">=</span> set(map(tuple, obstacles))
+</span></span><span style="display:flex;"><span>    direction <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>   <span style="color:#75715e"># O123 is NESW</span>
+</span></span><span style="display:flex;"><span>    move <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>)]
+</span></span><span style="display:flex;"><span>    max_distance <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    curr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> command <span style="color:#f92672">in</span> commands:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> command <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>: <span style="color:#75715e"># move in direction</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> command <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> (curr[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span>move[direction][<span style="color:#ae81ff">0</span>], curr[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>move[direction][<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> obstacles:
+</span></span><span style="display:flex;"><span>                curr[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> move[direction][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>                curr[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> move[direction][<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>                command <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> command <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>: <span style="color:#75715e"># right</span>
+</span></span><span style="display:flex;"><span>            direction <span style="color:#f92672">=</span> (direction <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> command <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>: <span style="color:#75715e"># left</span>
+</span></span><span style="display:flex;"><span>            direction <span style="color:#f92672">=</span> (direction <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        max_distance <span style="color:#f92672">=</span> max(max_distance, curr[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span>curr[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> curr[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span>curr[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max_distance
+</span></span></code></pre></div><p>Was getting TLE the first time since I used obstacles as is for lookups</p>
+<hr>
+<ol start="2028">
+<li>Find Missing Observations</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">missingRolls</span>(self, rolls: List[int], mean: int, n: int) <span style="color:#f92672">-&gt;</span> List[int]:
+</span></span><span style="display:flex;"><span>    missing <span style="color:#f92672">=</span> mean <span style="color:#f92672">*</span> (n <span style="color:#f92672">+</span> len(rolls)) <span style="color:#f92672">-</span> sum(rolls)
+</span></span><span style="display:flex;"><span>    val, rem <span style="color:#f92672">=</span> divmod(missing, n)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;=</span> val <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">or</span> (val <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">and</span> rem <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [val <span style="color:#f92672">+</span> (i <span style="color:#f92672">&lt;</span> rem) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n)]
+</span></span></code></pre></div><p>Took a greedy approach initially by initializing result as a list of ones, checking validity, then making each value as large as possible before moving to the next one. This divmod approach is nicer and less verbose.</p>
+
+</article>
+
+            </div>
+        </main>
+    </body></html>
