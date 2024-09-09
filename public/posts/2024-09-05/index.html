@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
    
-  <meta name="description" content="Walking Robot Simulation def robotSim(self, commands: List[int], obstacles: List[List[int]]) -&gt; int: # for O(1) lookup in obstacles obstacles = set(map(tuple, obstacles)) direction = 0 # O123 is NESW move = [(0,1), (1,0), (0,-1), (-1,0)] max_distance = 0 curr = [0,0] for command in commands: if command &gt; 0: # move in direction while command &gt; 0 and (curr[0]&#43;move[direction][0], curr[1]&#43;move[direction][1]) not in obstacles: curr[0] &#43;= move[direction][0] curr[1] &#43;= move[direction][1] command -= 1 elif command == -1: # right direction = (direction &#43; 1) % 4 elif command == -2: # left direction = (direction &#43; 3) % 4 max_distance = max(max_distance, curr[0]*curr[0] &#43; curr[1]*curr[1]) return max_distance Was getting TLE the first time since I used obstacles as is for lookups">  
+  <meta name="description" content="Walking Robot Simulation def robotSim(self, commands: List[int], obstacles: List[List[int]]) -&gt; int: # for O(1) lookup in obstacles obstacles = set(map(tuple, obstacles)) direction = 0 # O123 is NESW move = [(0,1), (1,0), (0,-1), (-1,0)] max_distance = 0 curr = [0,0] for command in commands: if command &gt; 0: # move in direction while command &gt; 0 and (curr[0]&#43;move[direction][0], curr[1]&#43;move[direction][1]) not in obstacles: curr[0] &#43;= move[direction][0] curr[1] &#43;= move[direction][1] command -= 1 elif command == -1: # right direction = (direction &#43; 1) % 4 elif command == -2: # left direction = (direction &#43; 3) % 4 max_distance = max(max_distance, curr[0]*curr[0] &#43; curr[1]*curr[1]) return max_distance Was getting TLE the first time since I used obstacles as is for lookups, pretty straightforward otherwise.">  
   
 
   <title>
@@ -18,7 +18,7 @@
   
   
   
-  <link rel="stylesheet" href="/css/main.8a6a3ecb92f1b1fc0a3e0c8f71869c3842012c081abdd68f5927805dd71af34494df2e847f5f11a26a004b9c2483325e1b093e9f1fd22a8a6f04dac0a31a142f.css" integrity="sha512-imo&#43;y5LxsfwKPgyPcYacOEIBLAgavdaPWSeAXdca80SU3y6Ef18RomoAS5wkgzJeGwk&#43;nx/SKopvBNrAoxoULw==" />
+  <link rel="stylesheet" href="/css/main.ac584edd0395c215a5edbf702455ada5adef67bf06eeed462ce6893c216f56400044dbf659b5bf91db1a23acfb5e8566becabd9543c63a22cf8591125da453c2.css" integrity="sha512-rFhO3QOVwhWl7b9wJFWtpa3vZ78G7u1GLOaJPCFvVkAARNv2WbW/kdsaI6z7XoVmvsq9lUPGOiLPhZESXaRTwg==" />
   
 </head>
 <body a="auto">
@@ -62,7 +62,7 @@
 </span></span><span style="display:flex;"><span>        max_distance <span style="color:#f92672">=</span> max(max_distance, curr[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span>curr[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> curr[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span>curr[<span style="color:#ae81ff">1</span>])
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max_distance
-</span></span></code></pre></div><p>Was getting TLE the first time since I used obstacles as is for lookups</p>
+</span></span></code></pre></div><p>Was getting TLE the first time since I used obstacles as is for lookups, pretty straightforward otherwise.</p>
 <hr>
 <ol start="2028">
 <li>Find Missing Observations</li>
@@ -73,7 +73,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;=</span> val <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">or</span> (val <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">and</span> rem <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>):
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> []
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [val <span style="color:#f92672">+</span> (i <span style="color:#f92672">&lt;</span> rem) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n)]
-</span></span></code></pre></div><p>Took a greedy approach initially by initializing result as a list of ones, checking validity, then making each value as large as possible before moving to the next one. This divmod approach is nicer and less verbose.</p>
+</span></span></code></pre></div><p>Took a greedy approach initially by initializing result as a list of ones, checking validity, then making each value as large as possible before moving to the next one. This divmod approach is cool with the list comprehension and boolean addition!!!</p>
 
 </article>
 
