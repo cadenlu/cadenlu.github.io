@@ -6,8 +6,22 @@
     <description>Recent content in Posts on caden lu</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Sep 2024 10:33:57 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 27 Sep 2024 16:37:30 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2024 09 27</title>
+      <link>http://localhost:1313/posts/2024-09-27/</link>
+      <pubDate>Fri, 27 Sep 2024 16:37:30 -0700</pubDate>
+      <guid>http://localhost:1313/posts/2024-09-27/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>cool</title>
+      <link>http://localhost:1313/posts/2024-09-10/</link>
+      <pubDate>Tue, 10 Sep 2024 11:58:31 -0700</pubDate>
+      <guid>http://localhost:1313/posts/2024-09-10/</guid>
+      <description>lalalala whatever post&#xA;Active: Jax enters Evasion, a defensive stance, for up to 2 seconds, causing all basic attacks against him to miss. Jax also takes 25% reduced damage from all champion area of effect abilities. After 1 second, Jax can reactivate to end it immediately.&#xA;I did not know soraka Q heal lowers W hp cost on heal</description>
+    </item>
     <item>
       <title>Leetcode Dailies 4-5</title>
       <link>http://localhost:1313/posts/2024-09-05/</link>
