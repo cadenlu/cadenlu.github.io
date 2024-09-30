@@ -2,45 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>caden lu</title>
-    <link>http://localhost:1313/</link>
+    <link>http://localhost:55313/</link>
     <description>Recent content on caden lu</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 Sep 2024 16:37:30 -0700</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 Sep 2024 17:39:39 -0700</lastBuildDate>
+    <atom:link href="http://localhost:55313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Costco Mesquite Wings</title>
+      <link>http://localhost:55313/posts/costco-mesquite-wings/</link>
+      <pubDate>Sun, 29 Sep 2024 17:39:39 -0700</pubDate>
+      <guid>http://localhost:55313/posts/costco-mesquite-wings/</guid>
+      <description>I had Costco Mesquite Wings for the first time today. It is around the same price of the raw wings and drumsticks, but it is already cooked and seasoned. It was yummy after reheating it up in the oven.&#xA;I thought it tasted like pizza&#xA;My dad thought it tasted like Indian-Mexican food&#xA;My mom thought it tasted like Chipotle chicken&#xA;My cousin thought it tasted like BBQ flavour&#xA;I think it is a good deal for the price.</description>
+    </item>
     <item>
       <title>everything is todo list</title>
-      <link>http://localhost:1313/posts/2024-09-27/</link>
+      <link>http://localhost:55313/posts/2024-09-27/</link>
       <pubDate>Fri, 27 Sep 2024 16:37:30 -0700</pubDate>
-      <guid>http://localhost:1313/posts/2024-09-27/</guid>
+      <guid>http://localhost:55313/posts/2024-09-27/</guid>
       <description>All my personal projects can be reduced to Todo List.&#xA;Bus Optimizer? Todo List with math and maps.&#xA;Bug Tracker? Todo List with comments and auth.&#xA;PCPartPicker clone? Todo List with a price database and web scraper.&#xA;Even this blog is functionally a Todo List of posts.&#xA;I don&amp;rsquo;t want to be a Todo List developer forever.</description>
     </item>
     <item>
       <title>cool</title>
-      <link>http://localhost:1313/posts/2024-09-10/</link>
+      <link>http://localhost:55313/posts/2024-09-10/</link>
       <pubDate>Tue, 10 Sep 2024 11:58:31 -0700</pubDate>
-      <guid>http://localhost:1313/posts/2024-09-10/</guid>
+      <guid>http://localhost:55313/posts/2024-09-10/</guid>
       <description>lalalala whatever post&#xA;Active: Jax enters Evasion, a defensive stance, for up to 2 seconds, causing all basic attacks against him to miss. Jax also takes 25% reduced damage from all champion area of effect abilities. After 1 second, Jax can reactivate to end it immediately.&#xA;I did not know soraka Q heal lowers W hp cost on heal</description>
     </item>
     <item>
       <title>Leetcode Dailies 4-5</title>
-      <link>http://localhost:1313/posts/2024-09-05/</link>
+      <link>http://localhost:55313/posts/2024-09-05/</link>
       <pubDate>Thu, 05 Sep 2024 10:33:57 -0700</pubDate>
-      <guid>http://localhost:1313/posts/2024-09-05/</guid>
+      <guid>http://localhost:55313/posts/2024-09-05/</guid>
       <description>Walking Robot Simulation def robotSim(self, commands: List[int], obstacles: List[List[int]]) -&amp;gt; int: # for O(1) lookup in obstacles obstacles = set(map(tuple, obstacles)) direction = 0 # O123 is NESW move = [(0,1), (1,0), (0,-1), (-1,0)] max_distance = 0 curr = [0,0] for command in commands: if command &amp;gt; 0: # move in direction while command &amp;gt; 0 and (curr[0]+move[direction][0], curr[1]+move[direction][1]) not in obstacles: curr[0] += move[direction][0] curr[1] += move[direction][1] command -= 1 elif command == -1: # right direction = (direction + 1) % 4 elif command == -2: # left direction = (direction + 3) % 4 max_distance = max(max_distance, curr[0]*curr[0] + curr[1]*curr[1]) return max_distance Was getting TLE the first time since I used obstacles as is for lookups, pretty straightforward otherwise.</description>
     </item>
     <item>
       <title>Leetcode Dailies 1-3</title>
-      <link>http://localhost:1313/posts/2024-09-03/</link>
+      <link>http://localhost:55313/posts/2024-09-03/</link>
       <pubDate>Tue, 03 Sep 2024 09:50:43 -0700</pubDate>
-      <guid>http://localhost:1313/posts/2024-09-03/</guid>
+      <guid>http://localhost:55313/posts/2024-09-03/</guid>
       <description>Convert 1D Array Into 2D Array def construct2DArray(self, original: List[int], m: int, n: int) -&amp;gt; List[List[int]]: return [original[i:i+n] for i in range(0, m*n, n)] if len(original) == m*n else [] List comprehensions and ternary operators are fun.&#xA;Find the Student that Will Replace the Chalk def chalkReplacer(self, chalk: List[int], k: int) -&amp;gt; int: k = k % sum(chalk) for i in range(len(chalk)): if k &amp;lt; chalk[i]: return i k -= chalk[i] I thought this was an &amp;ldquo;easy&amp;rdquo; problem when I read this no way it should be a &amp;ldquo;medium&amp;rdquo;.</description>
     </item>
     <item>
       <title>About Me</title>
-      <link>http://localhost:1313/about-me/</link>
+      <link>http://localhost:55313/about-me/</link>
       <pubDate>Thu, 15 Aug 2024 22:56:39 -0700</pubDate>
-      <guid>http://localhost:1313/about-me/</guid>
+      <guid>http://localhost:55313/about-me/</guid>
       <description>Hi I am Caden and I like bread.&#xA;I am currently working as web man for UBC Web Services. I love to code and learn new things. I am passionate about technology and I am always looking for new opportunities to learn and grow.&#xA;I am currently working on a few side projects and I am always looking for new ideas to work on. If you have any questions or would like to get in touch, feel free to reach out to me.</description>
     </item>
   </channel>
