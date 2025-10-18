@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=43643&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
    
-  <meta name="description" content="Convert 1D Array Into 2D Array def construct2DArray(self, original: List[int], m: int, n: int) -&gt; List[List[int]]: return [original[i:i&#43;n] for i in range(0, m*n, n)] if len(original) == m*n else [] List comprehensions and ternary operators are fun.
-Find the Student that Will Replace the Chalk def chalkReplacer(self, chalk: List[int], k: int) -&gt; int: k = k % sum(chalk) for i in range(len(chalk)): if k &lt; chalk[i]: return i k -= chalk[i] I thought this was an &ldquo;easy&rdquo; problem when I read this no way it should be a &ldquo;medium&rdquo;.">  
+  <meta name="description" content="
+Convert 1D Array Into 2D Array
+
+def construct2DArray(self, original: List[int], m: int, n: int) -&gt; List[List[int]]:
+    return [original[i:i&#43;n] for i in range(0, m*n, n)] if len(original) == m*n else []
+List comprehensions and ternary operators are fun.
+
+
+Find the Student that Will Replace the Chalk
+
+def chalkReplacer(self, chalk: List[int], k: int) -&gt; int:
+        k = k % sum(chalk)
+        for i in range(len(chalk)):
+            if k &lt; chalk[i]:
+                return i
+            k -= chalk[i]
+I thought this was an &ldquo;easy&rdquo; problem when I read this no way it should be a &ldquo;medium&rdquo;.
+Other than finding the trick with modulo to prevent TLE it is pretty simple solution.">  
   
 
   <title>
