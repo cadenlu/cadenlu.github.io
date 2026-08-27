@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="listing-layout">
+    <main class="listing-layout__content">
+        {{ partial "back_link.html" .}}
+
+        <h1>{{ .Title }}</h1>
+
+        {{ .Content }}
+        <div class="post-cards">
+            {{- range .Pages.ByDate.Reverse }}
+                <article class="post-card">
+                    <a href="{{ .RelPermalink }}">
+                        <h2>{{ .Title }}</h2>
+                        <time datetime="{{ .Date.Format "2006-01-02" }}">
+                            {{ .Date | time.Format "Jan 2, 2006" }}
+                        </time>
+                        <p>{{ .Description | default .Summary | plainify }}</p>
+                        <span class="post-card__reading-time">
+                            {{ .ReadingTime }} min read
+                        </span>
+                    </a>
+                </article>
+            {{- end }}
+        </div>
+    </main>
+</div>
+{{ end }}

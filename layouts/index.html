@@ -1,0 +1,26 @@
+{{ define "main" }}
+
+<div class="home">
+    <header class="home-header">
+        <h1>{{ $.Site.Title }}</h1>
+        <nav aria-label="Primary">
+            {{- range $index, $item := $.Site.Data.menu.entries -}}
+                {{- if $index }}<span aria-hidden="true"> | </span>{{ end -}}
+                {{- if $item.disabled -}}
+                    <span class="home-nav__disabled" aria-disabled="true">{{ $item.title }}</span>
+                {{- else -}}
+                    <a href="{{ $item.url | relURL }}">{{ $item.title }}</a>
+                {{- end -}}
+            {{- end }}
+        </nav>
+    </header>
+
+    <div class="home-intro">{{ .Content }}</div>
+
+    <section class="recent-posts">
+        <h2>Recent Posts</h2>
+        {{ partial "post_list.html" (dict "context" . "section" "posts") }}
+    </section>
+</div>
+
+{{ end }}

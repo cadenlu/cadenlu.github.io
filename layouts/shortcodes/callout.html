@@ -1,0 +1,10 @@
+{{- $tone := .Get "tone" | default "note" -}}
+<aside
+  class="callout callout--{{ $tone }}"
+  style="border: 1px solid currentColor; border-left-width: 0.45rem; margin: 2rem 0; padding: 1rem 1.25rem;"
+>
+  {{- with .Get "title" }}
+    <strong style="display: block; margin-bottom: 0.5rem;">{{ . }}</strong>
+  {{- end }}
+  {{ .Inner | markdownify }}
+</aside>

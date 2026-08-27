@@ -1,0 +1,28 @@
+{{ define "main" }}
+<div class="article-layout">
+    <aside class="article-left">
+        <div class="article-left__sticky">
+            <div class="article-back">
+                {{ partial "back_link.html" .}}
+            </div>
+            <div class="section-nav" aria-label="Sections">
+                {{- .TableOfContents -}}
+            </div>
+        </div>
+    </aside>
+
+    <article>
+        <h1>{{ .Title }}</h1>
+        {{ .Content }}
+    </article>
+
+    <aside class="article-meta">
+        <div class="sidenote-rail" aria-label="Citations and annotations"></div>
+    </aside>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $citationsjs := resources.Get "js/citations.js" | minify | fingerprint }}
+<script src="{{ $citationsjs.Permalink | relURL }}" integrity="{{ $citationsjs.Data.Integrity }}" defer></script>
+{{ end }}

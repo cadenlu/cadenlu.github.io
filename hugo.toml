@@ -1,7 +1,27 @@
 baseURL = 'https://cadenlu.xyz/'
 languageCode = 'en-us'
 title = 'caden lu'
-theme = 'hugo-theme-nostyleplease-main'
+
+[module]
+  [[module.mounts]]
+    source = 'static'
+    target = 'static'
 
 [markup.goldmark.renderer]
   unsafe = true
+
+[markup.goldmark.parser]
+  wrapStandAloneImageWithinParagraph = false
+
+[markup.goldmark.parser.attribute]
+  block = true
+  title = true
+
+[params.theme_config]
+  appearance = 'auto'
+  back_home_text = '<- home'
+  date_format = '2006-01-02'
+
+[security]
+  # This repository contains trusted HTML page resources for interactive posts.
+  allowContent = ['^text/markdown$', '^text/html$']

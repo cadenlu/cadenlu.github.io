@@ -1,0 +1,16 @@
+{{- $number := add .Ordinal 1 -}}
+{{- $id := .Get "id" | default (printf "citation-%d" $number) -}}
+{{- $href := .Get "href" -}}
+{{- $label := .Get "label" | default (printf "source %d" $number) -}}
+<span class="citation" data-citation="{{ $id }}">
+  {{- if $href -}}
+    <a class="citation__link" href="{{ $href | safeURL }}" aria-describedby="{{ $id }}-note">{{ $label }}</a>
+  {{- else -}}
+    <span class="citation__label" tabindex="0" aria-describedby="{{ $id }}-note">{{ $label }}</span>
+  {{- end -}}
+  <sup class="citation__marker" aria-hidden="true">{{ $number }}</sup>
+  <span class="citation__source" id="{{ $id }}-note" role="note">
+    <span class="citation__number">{{ $number }}</span>
+    <span class="citation__text">{{ .Inner | markdownify }}</span>
+  </span>
+</span>
