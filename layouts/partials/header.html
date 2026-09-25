@@ -1,0 +1,38 @@
+<header class="header">
+  <div class="container container--narrow header__inner">
+    <a class="header__name-link" href="{{ site.Home.RelPermalink }}">
+      {{- if .IsHome }}
+      <h1 class="header__name">{{ site.Title }}</h1>
+      {{- else }}
+      <p class="header__name">{{ site.Title }}</p>
+      {{- end }}
+    </a>
+
+    <div class="header__actions">
+      {{- range site.Menus.main }}
+      {{- $active := and .Page (eq .Page $.Page) }}
+      <a class="header__nav-link" href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+
+      {{- if and (eq .Kind "page") (ne .Params.toc false) .Fragments.Headings }}
+      <button class="toc__toggle" type="button" data-toc-toggle aria-controls="toc" aria-expanded="false">
+        <span class="visually-hidden">Table of contents</span>
+        <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      {{- end }}
+
+      <div class="toggle-switch">
+        <input type="checkbox" id="theme-toggle" class="toggle-checkbox" aria-label="Dark mode">
+        <label class="toggle-label" for="theme-toggle"></label>
+      </div>
+    </div>
+  </div>
+</header>

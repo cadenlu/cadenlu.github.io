@@ -1,10 +1,10 @@
-{{- $tone := .Get "tone" | default "note" -}}
-<aside
-  class="callout callout--{{ $tone }}"
-  style="border: 1px solid currentColor; border-left-width: 0.45rem; margin: 2rem 0; padding: 1rem 1.25rem;"
->
-  {{- with .Get "title" }}
-    <strong style="display: block; margin-bottom: 0.5rem;">{{ . }}</strong>
+{{- /* callout.html — {{< callout type="warning" title="Heads up" >}} … {{< /callout >}}
+       type: note (default) | tip | warning | danger                          */ -}}
+{{- $type := .Get "type" | default "note" -}}
+{{- $title := .Get "title" -}}
+<aside class="callout callout--{{ $type }}">
+  {{- with $title }}
+  <p class="callout__title">{{ . }}</p>
   {{- end }}
   {{ .Inner | markdownify }}
 </aside>

@@ -1,26 +1,96 @@
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {{ if .IsPage }} 
-  <meta name="description" content="{{ .Summary }}">  
-  {{ else }} 
-  <meta name="description" content="HAHAHAHAHAHAHA SLFKJFK MY PERSONAL SITE"> 
-  {{ end }}
+{{- /* ------------------------------------------------------------------
+   head.html — everything inside <head>.
+   ------------------------------------------------------------------ */ -}}
+{{- $title := cond .IsHome site.Title (printf "%s — %s" .Title site.Title) -}}
+{{- $description := .Description | default .Params.summary | default site.Params.description -}}
+{{- $isPost := eq .Kind "page" -}}
 
-  <title>
-    {{ if not .IsHome }}
-      {{ .Title }}
-    {{ else }}
-      {{ $.Site.Title }}
-    {{ end }}
-  </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
+{{- /* Apply the saved / OS colour scheme before first paint to avoid a flash. */}}
+<script>
+(function () {
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  var dark = saved ? saved === 'dark'
+    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (dark) document.documentElement.classList.add('u-mode-invert');
+})();
+</script>
 
-  <link rel="shortcut icon" type="image/x-icon" href="{{ $.Site.Params.favicon | relURL }}" />
-  {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
-  {{ $sass := resources.Get "css/main.scss" }}
-  {{ $style := $sass | css.Sass $options | resources.Fingerprint "sha512" }}
-  <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}" />
-  {{ if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
-</head>
+{{- /* Fonts: Newsreader with its optical-size axis, mirroring the source site's
+       "Newsreader 24 Pt" body face and "Newsreader Display" heading face. */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap">
+
+{{- /* Stylesheets: chroma first so main.css wins equal-specificity ties. */}}
+{{- $css := slice (resources.Get "css/chroma.css") (resources.Get "css/main.css") | resources.Concat "css/site.css" -}}
+{{- $css = $css | minify | fingerprint "sha384" }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+
+{{- $js := resources.Get "js/main.js" | minify | fingerprint "sha384" }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+
+{{- if .Params.math }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false},{left:'$',right:'$',display:false}],throwOnError:false});"></script>
+{{- end }}
+
+{{- if .Params.mermaid }}
+{{- $mermaid := resources.Get "js/mermaid.js" | fingerprint "sha384" }}
+<script type="module" src="{{ $mermaid.RelPermalink }}" integrity="{{ $mermaid.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end }}
+
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $description | plainify | truncate 200 }}">
+{{- with site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- /* Every output format this page is published as (RSS, JSON search index...). */}}
+{{- range .AlternativeOutputFormats }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}">
+{{- end }}
+
+{{- /* ------------------------------------------------------------- Open Graph */}}
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description | plainify | truncate 200 }}">
+<meta property="og:type" content="{{ cond $isPost "article" "website" }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="{{ replace site.Language.Lang "-" "_" }}">
+{{- if $isPost }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- range .Params.tags }}
+<meta property="article:tag" content="{{ . }}">
+{{- end }}
+{{- end }}
+
+{{- $ogImage := "" }}
+{{- with .Params.images }}{{ $ogImage = index . 0 }}{{ end }}
+{{- if not $ogImage }}{{ with site.Params.og.image }}{{ $ogImage = . }}{{ end }}{{ end }}
+{{- with $ogImage }}
+<meta property="og:image" content="{{ cond (hasPrefix . "http") . (absURL .) }}">
+{{- end }}
+
+{{- /* ---------------------------------------------------------------- Twitter */}}
+<meta name="twitter:card" content="{{ cond $ogImage "summary_large_image" "summary" }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description | plainify | truncate 200 }}">
+{{- with $ogImage }}
+<meta name="twitter:image" content="{{ cond (hasPrefix . "http") . (absURL .) }}">
+{{- end }}
+{{- with site.Params.og.twitterHandle }}
+<meta name="twitter:site" content="{{ . }}">
+{{- end }}
+
+{{- /* --------------------------------------------------------- structured data */}}
+{{ partial "schema.html" . }}
+
+{{- /* Chrome/Android theming that follows the palette. */}}
+<meta name="theme-color" content="#f0eee6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1f1e1d" media="(prefers-color-scheme: dark)">

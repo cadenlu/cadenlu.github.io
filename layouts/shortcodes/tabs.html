@@ -1,0 +1,25 @@
+{{- /* tabs.html — accessible tab group.
+       {{< tabs id="demo" >}}{{< tab name="A" >}}…{{< /tab >}}{{< /tabs >}}
+       The inner `tab` shortcodes push onto .Store; `$inner` forces them to
+       execute before the nav is emitted.                                    */ -}}
+{{- $id := .Get "id" | default (printf "tabs-%d" .Ordinal) -}}
+{{- $label := .Get "label" | default "Tabs" -}}
+{{- $inner := .Inner -}}
+{{- $tabs := .Store.Get "tabs" -}}
+{{- if not $tabs }}{{ $tabs = slice }}{{ end }}
+<div class="tabs" id="{{ $id }}" data-tabs>
+  <div class="tabs__nav" role="tablist" aria-label="{{ $label }}">
+    {{- range $i, $t := $tabs }}
+    <button type="button" class="tabs__button" role="tab"
+            id="{{ $t.id }}-tab" aria-controls="{{ $t.id }}"
+            aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}"
+            tabindex="{{ if eq $i 0 }}0{{ else }}-1{{ end }}">{{ $t.name }}</button>
+    {{- end }}
+  </div>
+  {{- range $i, $t := $tabs }}
+  <div class="tabs__panel" role="tabpanel" id="{{ $t.id }}"
+       aria-labelledby="{{ $t.id }}-tab"{{ if ne $i 0 }} hidden{{ end }}>
+    {{ $t.content }}
+  </div>
+  {{- end }}
+</div>

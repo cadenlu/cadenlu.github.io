@@ -1,0 +1,4 @@
+# External link groups rendered on the home page beneath the content sections.
+# Each group becomes a <section> with an <h2> and a bullet list of links.
+# The optional `year` renders as "(<source>, <year>)" after the title, and the
+# optional `source` names the publication — useful for op-eds and interviews.

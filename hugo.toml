@@ -1,27 +1,131 @@
 baseURL = 'https://cadenlu.xyz/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'caden lu'
+enableRobotsTXT = true
+enableGitInfo = true
 
-[module]
-  [[module.mounts]]
-    source = 'static'
-    target = 'static'
+# ---------------------------------------------------------------- pagination
+[pagination]
+  pagerSize = 10
+  path = 'page'
 
-[markup.goldmark.renderer]
-  unsafe = true
+# ------------------------------------------------------------------- taxonomies
+[taxonomies]
+  tag = 'tags'
+  category = 'categories'
+  series = 'series'
 
-[markup.goldmark.parser]
-  wrapStandAloneImageWithinParagraph = false
+# ---------------------------------------------------------------------- outputs
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
+  section = ['HTML', 'RSS']
+  taxonomy = ['HTML', 'RSS']
+  term = ['HTML', 'RSS']
 
-[markup.goldmark.parser.attribute]
-  block = true
-  title = true
+# --------------------------------------------------------------------- services
+# Cap the number of items in each RSS feed.
+[services]
+  [services.rss]
+    limit = 20
 
-[params.theme_config]
-  appearance = 'auto'
-  back_home_text = '<- home'
-  date_format = '2006-01-02'
+# -------------------------------------------------------------------- site params
+[params]
+  description = 'Personal site of Caden Lu — notes, essays, and things I am building.'
+  author = 'Caden Lu'
+  # Shown in the footer, e.g. "New York". Leave blank to omit.
+  location = ''
 
-[security]
-  # This repository contains trusted HTML page resources for interactive posts.
-  allowContent = ['^text/markdown$', '^text/html$']
+  # Open Graph / Twitter card image, relative to static/ or an absolute URL.
+  [params.og]
+    image = 'og-card.png'
+    twitterHandle = ''
+
+# ----------------------------------------------------------------------- menus
+[[menus.main]]
+  name = 'Archive'
+  pageRef = '/archive'
+  weight = 10
+
+[[menus.main]]
+  name = 'Tags'
+  pageRef = '/tags'
+  weight = 20
+
+# Footer links. The header renders `main`; the footer keeps its own short set.
+[[menus.footer]]
+  name = 'Archive'
+  pageRef = '/archive'
+  weight = 10
+
+# -------------------------------------------------------------------- related
+# Scores relatedness between pages; drives `site.RegularPages.Related`.
+[related]
+  threshold = 60
+  includeNewer = true
+  toLower = false
+
+  [[related.indices]]
+    name = 'keywords'
+    weight = 100
+
+  [[related.indices]]
+    name = 'tags'
+    weight = 80
+
+  [[related.indices]]
+    name = 'categories'
+    weight = 40
+
+  [[related.indices]]
+    name = 'date'
+    weight = 10
+
+# ----------------------------------------------------------------------- markup
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      linkifyProtocol = 'https'
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)'], ['$', '$']]
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      autoHeadingIDType = 'github'
+      wrapStandAloneImageWithinParagraph = true
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
+    [markup.goldmark.renderer]
+      hardWraps = false
+      unsafe = true      # allow raw HTML in markdown
+      xhtml = false
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ''
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = false   # emit .chroma classes so we can theme light/dark
+    style = 'catppuccin-latte'
+    tabWidth = 4
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+
+# -------------------------------------------------------------------- sitemap
+[sitemap]
+  changefreq = 'weekly'
+  priority = 0.5

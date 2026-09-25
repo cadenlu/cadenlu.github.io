@@ -1,0 +1,6 @@
+{{- /* kbd.html — {{< kbd "⌘" "K" >}} renders a sequence of keycaps. */ -}}
+{{- $keys := .Params -}}
+{{- if not $keys }}{{ $keys = slice (.Get 0) }}{{ end -}}
+<span class="kbd-group">
+  {{- range $i, $k := $keys }}{{ if $i }}<span class="kbd-plus" aria-hidden="true">+</span>{{ end }}<kbd>{{ $k }}</kbd>{{ end -}}
+</span>

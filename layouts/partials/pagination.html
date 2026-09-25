@@ -1,0 +1,19 @@
+{{- /* Pagination footer for list pages. */ -}}
+{{- $pag := .Paginator }}
+{{- if gt $pag.TotalPages 1 }}
+<nav class="pagination" aria-label="Pagination">
+  <div class="pagination__links">
+    {{- with $pag.Prev }}
+    <span aria-hidden="true">←</span> <a href="{{ .URL }}">Newer</a>
+    {{- end }}
+  </div>
+
+  <span class="pagination__current">Page {{ $pag.PageNumber }} of {{ $pag.TotalPages }}</span>
+
+  <div class="pagination__links">
+    {{- with $pag.Next }}
+    <a href="{{ .URL }}">Older</a> <span aria-hidden="true">→</span>
+    {{- end }}
+  </div>
+</nav>
+{{- end }}

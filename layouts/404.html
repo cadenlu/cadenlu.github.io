@@ -1,8 +1,29 @@
 {{ define "main" }}
+<article>
+  <div class="container container--narrow">
+    <h1 class="post-title">Page not found</h1>
+    <p class="post-subtitle">That URL does not exist — or it did once and no longer does.</p>
 
-{{- partial "back_link.html" . -}}
+    <div class="rich-text">
+      <p>
+        Try the <a href="{{ "/archive/" | relURL }}">archive</a>,
+        browse <a href="{{ "/tags/" | relURL }}">tags</a>, or
+        <a href="{{ "/search/" | relURL }}">search the site</a>.
+      </p>
+    </div>
 
-<header>
-    <h1>404 Not Found</h1>
-</header>
+    <div class="post-footer">
+      <p class="post-footer__row">
+        <span class="post-footer__label">Latest</span>
+      </p>
+      <ul class="bullet-list">
+        {{- range first 5 (where site.RegularPages "Params.unlisted" "!=" true).ByDate.Reverse }}
+        <li class="bullet-list__item">
+          <a class="bullet-list__link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+  </div>
+</article>
 {{ end }}

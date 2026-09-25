@@ -1,0 +1,9 @@
+{{- /* mermaid.html — {{< mermaid >}}graph TD; A-->B;{{< /mermaid >}}
+       Rendered client-side; see the conditional loader in head.html.        */ -}}
+{{- $caption := .Get "caption" -}}
+<figure{{ with $caption }} class="rich-text"{{ end }}>
+  <div class="mermaid">{{ .Inner | strings.TrimSpace }}</div>
+  {{- with $caption }}
+  <figcaption>{{ . }}</figcaption>
+  {{- end }}
+</figure>

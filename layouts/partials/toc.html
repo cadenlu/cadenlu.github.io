@@ -1,0 +1,13 @@
+{{- /* Sidebar table of contents. Only rendered when the page actually has
+       in-range headings and has not opted out with `toc: false`. */ -}}
+{{- if ne .Params.toc false }}
+{{- $headings := .Fragments.Headings }}
+{{- with $headings }}
+<nav class="toc" id="toc" aria-labelledby="toc-heading">
+  <div class="container container--narrow">
+    <h2 class="toc__title" id="toc-heading">Contents</h2>
+    <ul class="toc__list">{{ partial "toc-tree.html" . }}</ul>
+  </div>
+</nav>
+{{- end }}
+{{- end }}

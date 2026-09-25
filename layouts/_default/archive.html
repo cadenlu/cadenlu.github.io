@@ -1,0 +1,24 @@
+{{ define "main" }}
+<article>
+  <div class="container container--narrow">
+    <header>
+      <h1 class="post-title">Archive</h1>
+      <p class="post-subtitle">my posts, newest first.</p>
+    </header>
+
+    {{- range (where site.RegularPages "Params.unlisted" "!=" true).GroupByDate "2006" }}
+    <section>
+      <h2 class="archive-year">{{ .Key }}</h2>
+      <ul class="bullet-list">
+        {{- range .Pages }}
+        <li class="bullet-list__item">
+          <a class="bullet-list__link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <span class="bullet-list__meta">({{ .Date.Format "Jan 2" }})</span>
+        </li>
+        {{- end }}
+      </ul>
+    </section>
+    {{- end }}
+  </div>
+</article>
+{{ end }}

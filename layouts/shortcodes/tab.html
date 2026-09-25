@@ -1,0 +1,9 @@
+{{- /* tab.html — a single panel inside {{< tabs >}}. */ -}}
+{{- $tabsID := .Parent.Get "id" | default (printf "tabs-%d" .Parent.Ordinal) -}}
+{{- $name := .Get "name" | default (.Get 0) | default (printf "Tab %d" .Ordinal) -}}
+{{- $panels := .Parent.Store.Get "tabs" -}}
+{{- if not $panels }}{{ $panels = slice }}{{ end -}}
+{{- .Parent.Store.Set "tabs" ($panels | append (dict
+      "name" $name
+      "id" (printf "%s-%d" $tabsID .Ordinal)
+      "content" (.Inner | markdownify))) -}}

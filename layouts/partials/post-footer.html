@@ -1,0 +1,71 @@
+{{- /* Footer block shared by all single pages: taxonomy links, series
+       navigation, related posts, and chronological neighbours. Both blocks are
+       conditional — each one draws a top rule, so an empty one would still show
+       a stray separator. */ -}}
+
+{{- $updated := and .Lastmod (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) }}
+{{- $related := site.RegularPages.Related . | first 5 }}
+
+{{- if or .Params.tags .Params.series $updated $related }}
+<footer class="post-footer">
+  {{- with .Params.tags }}
+  <p class="post-footer__row">
+    <span class="post-footer__label">Tags</span>
+    <span>
+      {{- range $i, $t := . }}{{ if $i }} · {{ end }}<a href="{{ "/tags/" | relURL }}{{ $t | urlize }}/">#{{ $t }}</a>{{ end }}
+    </span>
+  </p>
+  {{- end }}
+
+  {{- if $updated }}
+  <p class="post-footer__row">
+    <span class="post-footer__label">Updated</span>
+    <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod | time.Format ":date_long" }}</time>
+  </p>
+  {{- end }}
+
+  {{- with .Params.series }}
+  {{- $series := index . 0 }}
+  {{- $all := (index site.Taxonomies.series ($series | urlize)).Pages.ByDate }}
+  <nav class="series-nav" aria-label="Series: {{ $series }}">
+    <h2 class="series-nav__title">Part of “{{ $series }}”</h2>
+    <ol>
+      {{- range $all }}
+      <li>
+        {{- if eq . $.Page }}<span aria-current="page">{{ .Title }}</span>
+        {{- else }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}
+      </li>
+      {{- end }}
+    </ol>
+  </nav>
+  {{- end }}
+
+  {{- with $related }}
+  <nav class="related-posts" aria-label="Related posts">
+    <p class="post-footer__row"><span class="post-footer__label">Related</span></p>
+    <ul class="bullet-list">
+      {{- range . }}
+      <li class="bullet-list__item">
+        <a class="bullet-list__link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+      {{- end }}
+    </ul>
+  </nav>
+  {{- end }}
+</footer>
+{{- end }}
+
+{{- if or .PrevInSection .NextInSection }}
+<nav class="pagination" aria-label="Post navigation">
+  <div class="pagination__links">
+    {{- with .PrevInSection }}
+    <span aria-hidden="true">←</span> <a rel="prev" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{- end }}
+  </div>
+  <div class="pagination__links">
+    {{- with .NextInSection }}
+    <a rel="next" href="{{ .RelPermalink }}">{{ .Title }}</a> <span aria-hidden="true">→</span>
+    {{- end }}
+  </div>
+</nav>
+{{- end }}

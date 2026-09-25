@@ -1,12 +1,23 @@
-<!DOCTYPE html>
-<html lang="{{ $.Site.LanguageCode }}">
-    {{- partial "head.html" . -}}
-    <body a="{{ $.Site.Params.theme_config.appearance | default "auto" }}">
-        <main class="page-content" aria-label="Content">
-            <div class="w">
-                {{- block "main" . }}{{- end }}
-            </div>
-</main>
-            {{- block "scripts" . }}{{- end }}
-        </body>
+<!doctype html>
+<html lang="{{ site.Language.Lang }}" data-theme-init>
+<head>
+  {{- partial "head.html" . }}
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="page-wrapper">
+    {{- partial "header.html" . }}
+
+    {{- if and (eq .Kind "page") (ne .Params.toc false) }}
+    {{- partial "toc.html" . }}
+    {{- end }}
+
+    <main class="page-main" id="main-content">
+      {{- block "main" . }}{{ end }}
+    </main>
+
+    {{- partial "footer.html" . }}
+  </div>
+</body>
 </html>

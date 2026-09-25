@@ -1,0 +1,8 @@
+{{- /* details.html — collapsible block.
+       {{< details summary="Why?" open="true" >}} … {{< /details >}}        */ -}}
+{{- $summary := .Get "summary" | default "Details" -}}
+{{- $open := eq (.Get "open" | default "false") "true" }}
+<details class="details"{{ if $open }} open{{ end }}>
+  <summary>{{ $summary }}</summary>
+  {{ .Inner | markdownify }}
+</details>

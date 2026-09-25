@@ -1,21 +1,22 @@
 {{ define "main" }}
-{{ partial "back_link.html" .}}
-
 <article>
-    <p class="post-meta">
-        <time datetime="{{ .Date }}">
-            {{ .Date | time.Format site.Params.theme_config.date_format }}
-        </time>
-    </p>
+  <div class="container container--narrow">
+    <header class="post-header">
+      <h1 class="post-title">{{ .Title }}</h1>
+      {{- with .Params.subtitle }}
+      <p class="post-subtitle">{{ . }}</p>
+      {{- end }}
+      <p class="post-date">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2006" }}</time>
+      </p>
 
-    <h1>{{ .Title }}</h1>
+    </header>
 
-    {{ if .Params.toc }}
-        <aside {{ if .Params.tocBorder }} class="toc" {{ end }}>
-            {{ .TableOfContents }}
-        </aside>
-    {{ end }}
+    <div class="rich-text" data-pagefind-body>
+      {{ .Content }}
+    </div>
 
-    {{ .Content }}
+    {{- partial "post-footer.html" . }}
+  </div>
 </article>
 {{ end }}

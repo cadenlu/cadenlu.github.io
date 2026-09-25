@@ -1,0 +1,15 @@
+<footer class="site-footer">
+  <div class="container container--narrow site-footer__inner">
+    <p class="site-footer__copy">
+      &copy; {{ now.Year }} {{ site.Params.author | default site.Title }}
+      {{- with site.Params.location }} · {{ . }}{{ end }}
+    </p>
+    {{- with site.Menus.footer }}
+    <nav class="site-footer__links" aria-label="Footer">
+      {{- range . }}
+      <a href="{{ .URL }}"{{ if and .Page (eq .Page $.Page) }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+    {{- end }}
+  </div>
+</footer>

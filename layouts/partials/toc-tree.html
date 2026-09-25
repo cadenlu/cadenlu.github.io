@@ -1,0 +1,25 @@
+{{- /* Recursive table-of-contents renderer. Context: a slice of .Fragments
+       headings.
+
+       Emits <li> elements only — the caller supplies the surrounding <ul> — so
+       headings that are skipped (the synthetic h1 wrapper Hugo adds, and any
+       level outside the configured 2–3 range) can hoist their children into
+       the parent list without producing invalid nested <ul> markup. */ -}}
+{{- $min := 2 -}}
+{{- $max := 3 -}}
+
+{{- range . -}}
+  {{- if and .ID (ge .Level $min) (le .Level $max) -}}
+  <li>
+    <a class="toc__link" href="#{{ .ID }}">{{ .Title | plainify }}</a>
+    {{- with .Headings }}
+    {{- $sub := partial "toc-tree.html" . }}
+    {{- if strings.Contains $sub "<li>" }}
+    <ul class="toc__list">{{ $sub }}</ul>
+    {{- end }}
+    {{- end }}
+  </li>
+  {{- else -}}
+    {{- with .Headings }}{{ partial "toc-tree.html" . }}{{ end }}
+  {{- end -}}
+{{- end -}}

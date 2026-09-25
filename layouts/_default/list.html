@@ -1,12 +1,39 @@
 {{ define "main" }}
-<div class="listing-layout">
-    <main class="listing-layout__content">
-        {{ partial "back_link.html" .}}
+<article>
+  <div class="container container--narrow">
+    <header>
+      <h1 class="post-title">{{ .Title }}</h1>
+      {{- with .Description }}
+      <p class="post-subtitle">{{ . }}</p>
+      {{- end }}
+    </header>
 
-        <h1>{{ .Title }}</h1>
+    {{- with .Content }}
+    <div class="rich-text">{{ . }}</div>
+    {{- end }}
 
-        {{ .Content }}
-        {{ partial "post_list.html" (dict "context" . "section" .Section)}}
-    </main>
-</div>
+    {{- $pages := where .Pages "Params.unlisted" "!=" true }}
+    {{- with $pages.ByDate.Reverse }}
+    <ul class="post-list">
+      {{- range . }}
+      <li class="post-list__item">
+        <h2 class="post-list__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p class="post-list__date">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
+          <span class="post-meta__sep" aria-hidden="true">·</span>
+          {{ .ReadingTime }} min read
+        </p>
+        {{- with .Summary }}
+        <p class="post-list__summary">{{ . | plainify | truncate 200 }}</p>
+        {{- end }}
+      </li>
+      {{- end }}
+    </ul>
+    {{- else }}
+    <p class="text-secondary">Nothing here yet.</p>
+    {{- end }}
+
+    {{- partial "pagination.html" . }}
+  </div>
+</article>
 {{ end }}

@@ -1,0 +1,8 @@
+{{- /* math.html — {{< math >}}e^{i\pi}+1=0{{< /math >}} or
+       {{< math display="true" >}} … {{< /math >}}                            */ -}}
+{{- $display := eq (.Get "display" | default "false") "true" -}}
+{{- if $display -}}
+$${{ .Inner | strings.TrimSpace }}$$
+{{- else -}}
+\( {{- .Inner | strings.TrimSpace -}} \)
+{{- end -}}

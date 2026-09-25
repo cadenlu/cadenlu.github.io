@@ -1,0 +1,20 @@
+{{ define "main" }}
+<article>
+  <div class="container container--narrow">
+    <header>
+      <h1 class="post-title">{{ .Title }}</h1>
+      <p class="post-subtitle">Everything on this site, by {{ .Data.Singular }}.</p>
+    </header>
+
+    <ul class="bullet-list">
+      {{- range .Pages.ByTitle }}
+      <li class="bullet-list__item">
+        <a class="bullet-list__link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="bullet-list__meta">{{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }}</span>
+        {{- with .Content }} <span class="bullet-list__meta">— {{ . | plainify | truncate 100 }}</span>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+</article>
+{{ end }}

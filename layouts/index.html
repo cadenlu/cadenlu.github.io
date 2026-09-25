@@ -1,26 +1,45 @@
 {{ define "main" }}
+<article>
+  <div class="container container--narrow">
+    <div class="rich-text home-intro">
+      {{ .Content }}
+    </div>
 
-<div class="home">
-    <header class="home-header">
-        <h1>{{ $.Site.Title }}</h1>
-        <nav aria-label="Primary">
-            {{- range $index, $item := $.Site.Data.menu.entries -}}
-                {{- if $index }}<span aria-hidden="true"> | </span>{{ end -}}
-                {{- if $item.disabled -}}
-                    <span class="home-nav__disabled" aria-disabled="true">{{ $item.title }}</span>
-                {{- else -}}
-                    <a href="{{ $item.url | relURL }}">{{ $item.title }}</a>
-                {{- end -}}
-            {{- end }}
-        </nav>
-    </header>
-
-    <div class="home-intro">{{ .Content }}</div>
-
-    <section class="recent-posts">
-        <h2>Recent Posts</h2>
-        {{ partial "post_list.html" (dict "context" . "section" "posts") }}
+    {{- /* Every top-level section that has pages, in `weight` order. */ -}}
+    {{- range where site.Sections "Params.hidden" "!=" true }}
+    {{- $section := . }}
+    {{- with where $section.RegularPages "Params.unlisted" "!=" true }}
+    <section class="home-section">
+      <h2 class="home-section__title"><a href="{{ $section.RelPermalink }}">{{ $section.Title }}</a></h2>
+      <ul class="bullet-list">
+        {{- range .ByDate.Reverse }}
+        <li class="bullet-list__item">
+          <a class="bullet-list__link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{- end }}
+      </ul>
     </section>
-</div>
+    {{- end }}
+    {{- end }}
 
+    {{- /* External link groups are data, so they can be edited without touching
+           templates. See data/links.toml. */ -}}
+    {{- range hugo.Data.links.groups }}
+    {{- $group := . }}
+    {{- with .links }}
+    <section class="home-section">
+      <h2 class="home-section__title">{{ $group.title }}</h2>
+      <ul class="bullet-list">
+        {{- range . }}
+        <li class="bullet-list__item">
+          <a class="bullet-list__link" href="{{ .url }}" target="_blank" rel="noopener">{{ .title }}</a>
+          {{- with .year }} <span class="bullet-list__meta">({{ $group.source }}, {{ . }})</span>{{ end }}
+        </li>
+        {{- end }}
+      </ul>
+    </section>
+    {{- end }}
+    {{- end }}
+  </div>
+</article>
 {{ end }}

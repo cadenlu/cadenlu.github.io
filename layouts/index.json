@@ -1,0 +1,17 @@
+{{- /* JSON search index, published at /index.json via the home page's JSON
+       output format. */ -}}
+[
+{{- $pages := where (where site.RegularPages "Params.search" "!=" false) "Params.unlisted" "!=" true -}}
+{{- range $i, $p := $pages.ByDate.Reverse }}
+  {{- if $i }},{{ end }}
+  {{- dict
+        "title" $p.Title
+        "permalink" $p.Permalink
+        "date" ($p.Date.Format "2006-01-02")
+        "summary" ($p.Summary | plainify | truncate 180)
+        "content" ($p.Plain | plainify | truncate 600)
+        "tags" ($p.Params.tags | default slice)
+        "categories" ($p.Params.categories | default slice)
+      | jsonify -}}
+{{- end }}
+]
