@@ -20,15 +20,23 @@
 </script>
 
 {{- /* Fonts: Newsreader with its optical-size axis, mirroring the source site's
-       "Newsreader 24 Pt" body face and "Newsreader Display" heading face. */}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap">
+       "Newsreader 24 Pt" body face and "Newsreader Display" heading face.
+       Self-hosted (assets/css/fonts.css); the upright Latin subset is on
+       every page, so fetch it alongside the HTML. */}}
+<link rel="preload" href="{{ "fonts/newsreader/roman-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:,">
 
-{{- /* Stylesheets: chroma first so main.css wins equal-specificity ties. */}}
-{{- $css := slice (resources.Get "css/chroma.css") (resources.Get "css/main.css") | resources.Concat "css/site.css" -}}
-{{- $css = $css | minify | fingerprint "sha384" }}
-<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{- /* Stylesheets, inlined so first paint waits on no extra request. Chroma
+       first so main.css wins equal-specificity ties; it ships only on pages
+       whose content has highlighted code. */}}
+{{- $fonts := resources.Get "css/fonts.css" }}
+{{- $main := resources.Get "css/main.css" }}
+{{- $css := slice $fonts $main | resources.Concat "css/site.css" }}
+{{- if and .IsPage (strings.Contains .Content `class="chroma"`) }}
+{{- $css = slice $fonts (resources.Get "css/chroma.css") $main | resources.Concat "css/site-code.css" }}
+{{- end }}
+{{- $css = $css | minify }}
+<style>{{ $css.Content | safeCSS }}</style>
 
 {{- $js := resources.Get "js/main.js" | minify | fingerprint "sha384" }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>

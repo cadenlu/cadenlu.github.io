@@ -28,6 +28,8 @@
   --colors-footnote-background-hover: rgba(0, 0, 0, 0.15);
   --colors-footnote-tooltip-background: var(--swatch-ivory-light);
   --colors-selection: var(--swatch-ivory-dark);
+  --grain-lighten-opacity: 1;
+  --grain-darken-opacity: 1;
 
   /* type */
   --font-body: "Newsreader", "Newsreader 24 Pt", "Times New Roman", serif;
@@ -74,6 +76,8 @@
   --colors-footnote-background-hover: rgba(255, 255, 255, 0.4);
   --colors-footnote-tooltip-background: var(--swatch-slate-medium);
   --colors-selection: var(--swatch-slate-light);
+  --grain-lighten-opacity: 0.6;
+  --grain-darken-opacity: 1;
 
   color-scheme: dark;
 }
@@ -113,6 +117,54 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: var(--transition-theme);
+}
+
+/* Paper grain, reproducing the alembic.space paper shader: independent
+   uniform grey noise of about ±50/255 added to every pixel, clipped at white.
+   CSS has no signed add, so scripts/gen-grain.py splits one noise draw into
+   two tiles: the positive half is added with plus-lighter, the negative half
+   multiplied in (calibrated to subtract exactly on the paper colour). Both
+   layers are fixed, non-interactive and above everything, so the sticky
+   header, TOC and page share one sheet, and the tile pixels are drawn one per
+   device pixel with no smoothing, like the shader's output. Browsers without
+   plus-lighter would paint the lighten tile opaque, so it is gated. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background-size: 128px 128px;
+  image-rendering: pixelated;
+}
+
+body::before {
+  background-image: url("/images/paper/grain-darken.png");
+  mix-blend-mode: multiply;
+  opacity: var(--grain-darken-opacity);
+}
+
+@supports (mix-blend-mode: plus-lighter) {
+  body::after {
+    background-image: url("/images/paper/grain-lighten.png");
+    mix-blend-mode: plus-lighter;
+    opacity: var(--grain-lighten-opacity);
+  }
+}
+
+@media (min-resolution: 2dppx) {
+  body::before,
+  body::after {
+    background-size: 64px 64px;
+  }
+}
+
+@media (min-resolution: 3dppx) {
+  body::before,
+  body::after {
+    background-size: 42.667px 42.667px;
+  }
 }
 
 ::selection {
@@ -1335,7 +1387,9 @@ sub {
   .toc,
   .site-footer,
   .post-footer,
-  .pagination {
+  .pagination,
+  body::before,
+  body::after {
     display: none;
   }
 

@@ -1,0 +1,19 @@
+{{- /* /llms.txt, per https://llmstxt.org: H1 title, blockquote summary, then
+       H2 sections of Markdown links. Published via the home page's `llms`
+       output format; listing rules match the home page. */ -}}
+# {{ site.Title }}
+
+> {{ site.Params.description }}
+{{ range where site.Sections "Params.hidden" "!=" true }}
+{{- with where .RegularPages "Params.unlisted" "!=" true }}
+## {{ (index . 0).Section | title }}
+
+{{ range .ByDate.Reverse -}}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description | default .Summary | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace }}: {{ . | truncate 160 }}{{ end }}
+{{ end }}
+{{- end }}
+{{- end }}
+## Optional
+
+- [Archive]({{ "archive/" | absURL }})
+- [RSS feed]({{ "index.xml" | absURL }})

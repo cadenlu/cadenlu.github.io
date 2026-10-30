@@ -15,9 +15,17 @@ enableGitInfo = true
   category = 'categories'
   series = 'series'
 
+# ---------------------------------------------------------------- llms.txt
+# /llms.txt (https://llmstxt.org): a Markdown index of the site for LLMs.
+[outputFormats.llms]
+  mediaType = 'text/plain'
+  baseName = 'llms'
+  isPlainText = true
+  notAlternative = true
+
 # ---------------------------------------------------------------------- outputs
 [outputs]
-  home = ['HTML', 'RSS', 'JSON']
+  home = ['HTML', 'RSS', 'JSON', 'llms']
   section = ['HTML', 'RSS']
   taxonomy = ['HTML', 'RSS']
   term = ['HTML', 'RSS']

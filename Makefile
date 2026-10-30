@@ -1,7 +1,7 @@
 HUGO ?= hugo
 PORT ?= 1313
 
-.PHONY: help build serve clean chroma check deploy-preview
+.PHONY: help build serve clean chroma grain check deploy-preview
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -19,6 +19,9 @@ clean: ## Remove generated output and caches
 
 chroma: ## Regenerate assets/css/chroma.css from Hugo's Chroma styles
 	python3 scripts/gen-chroma.py
+
+grain: ## Regenerate the paper-grain tiles in static/images/paper/
+	python3 scripts/gen-grain.py
 
 check: ## Report unused templates, missing internal links, and template problems
 	@# Builds to a scratch directory so public/ keeps its production output.
